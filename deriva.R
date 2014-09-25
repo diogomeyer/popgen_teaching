@@ -82,5 +82,9 @@ for(i in 1:2000) {
  hetz[i] <- 0.5 * (1-(1/N))^i
 }
 
+# vectorized alternative:
+hetz <- 0.5 * (1-(1/N))^(1:2000)
+
+# add theoretical line to the plot
 lines(hetz, lty=2, lwd=3)
 text(x=1900, y=0.1, labels="theoretical value")
