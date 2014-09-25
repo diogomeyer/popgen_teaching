@@ -1,6 +1,6 @@
 # Genetic Drift
 
-# Simulate a haploid population of 1000 individuals with alleles 0 or 1
+# Create a haploid population of 1000 individuals with alleles 0 or 1
 pop <- rep(x=0:1, times=c(500,500))
 
 # define an allele frequency vector (allele 0) over 2000 generations
