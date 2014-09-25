@@ -1,4 +1,4 @@
-## set parameters # teste
+## set parameters
 # population size
 N <- 1000
 
