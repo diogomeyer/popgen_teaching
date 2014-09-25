@@ -10,7 +10,7 @@ H.eq <- function(N,u)
     } 
  
 # Example run 
-plot(mut.drift(seq(100,1000000,10000), 10^-6) ) 
+#plot(mut.drift(seq(100,1000000,10000), 10^-6) ) 
  
  
  
@@ -21,7 +21,7 @@ plot(mut.drift(seq(100,1000000,10000), 10^-6) )
     return(f.prime)
     }
 
-## approach to equilibrium for 20000 generations assuing 2N=5000 and u=10^-4
+## approach to equilibrium for 20000 generations assuing N=5000 and u=10^-4
 
 f.res    <- numeric()
 f.res[1] <- 0.2
@@ -41,7 +41,7 @@ for(i in seq(2,20000) )
 plot(f.res)  
 
 # checando valor de convergência com valor observado
-abline(h=H.eq(5000, 10^-4))                 
+abline(h=H.eq(5000, 10^-4))           
     
     
     
