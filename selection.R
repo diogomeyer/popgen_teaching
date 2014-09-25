@@ -21,14 +21,11 @@ plot(0, xlim=c(0, ngen), ylim=c(0, 1), type="n",
 ## do the calculations
 for(i in 1:20) { 
   
-  # population i
-  pop <- rep(x=0:1, times=round(c(f, 1-f)*N))
-  
   # allele freq vector
   p <- numeric(ngen) 
 
-  # frequency of allele "0" in the original population
-  p[1] <- mean(pop == 0)
+  # initial frequency of allele "0"
+  p[1] <- f
   
   # for each subsequent generation
   for(j in 2:length(p)) { 
