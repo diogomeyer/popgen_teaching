@@ -1,7 +1,7 @@
 # Genetic Drift
 
 # Create a haploid population of 1000 individuals with alleles 0 or 1
-pop <- rep(x=0:1, times=c(500,500))
+pop <- rep(0:1, times=c(500,500))
 
 # define an allele frequency vector (allele 0) over 2000 generations
 p <- numeric(length=2000)
@@ -35,7 +35,7 @@ plot(0, type="n", xlim=c(0, 2000), ylim=c(0, 1),
 # for each population (N = 10)
 for(i in 1:10) {
   
-  pop <- rep(x=0:1, times=c(500, 500))
+  pop <- rep(0:1, times=c(500, 500))
   p <- numeric(2000)
   p[1] <- mean(pop == 0)
 
@@ -57,7 +57,7 @@ plot(0, type="n", xlim=c(0, 2000), ylim=c(0, 0.5),
 # for each population (N = 10)
 for(i in 1:10) {
   
-  pop <- rep(x=0:1, times=c(500,500))
+  pop <- rep(0:1, times=c(500,500))
   p <- numeric(2000)
   p[1] <- mean(pop == 0)
   
