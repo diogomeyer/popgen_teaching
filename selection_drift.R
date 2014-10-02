@@ -34,7 +34,7 @@ for(i in 1:20) {
     af <- p[j-1] / (1 - (s*(1-p[j-1])^2))
 
     # make population based on new allele freq
-    pop <- rep(x=0:1, times=round(c(af, 1-af)*N))  
+    pop <- rep(0:1, times=round(c(af, 1-af)*N))  
     pop <- sample(pop, replace=TRUE) 
 
     # take the frequency of allele "0"
