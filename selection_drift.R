@@ -1,5 +1,4 @@
-# set parameters ------------------------------------------------------------- #
-
+# set parameters: ------------------------------------------------------------ #
 # population size
 N <- 100
 
@@ -14,7 +13,6 @@ f <- 0.1
 
 # initializing variable 'fix', which will be the number of fixed populations
 fix <- 0
-
 # ---------------------------------------------------------------------------- #
 
 # Open plot device
@@ -26,7 +24,7 @@ plot(NA, xlim = c(0, ngen), ylim = c(0, 1), type = "n",
 for(i in 1:20) { 
   
   # allele freq vector
-  p <- rep(NA, ngen) 
+  p <- numeric(ngen) 
 
   # initial frequency of allele "0"
   p[1] <- f
@@ -56,7 +54,7 @@ for(i in 1:20) {
 } 
 
 # deterministic curve 
-pd <- rep(NA, ngen) 
+pd <- numeric(ngen) 
 pd[1] <- p[1]
 
 for(i in 2:length(pd)) { 
@@ -65,7 +63,9 @@ for(i in 2:length(pd)) {
 
 # plot
 lines(pd, lwd = 3)
+
 legend(x = 1300, y = 0.2, legend = c("simulated", "deterministic"), 
        lty = c(2,1), lwd = c(1,3), col = c("grey60", "black"), bty = "n",
        adj = c(0,1))
+
 text(1300, 0.3, sprintf("# of fixed populations = %d", fix), adj = c(0,1))
