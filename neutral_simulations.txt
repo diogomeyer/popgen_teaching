@@ -5,3 +5,41 @@
 #	Last modified: 31.03.2015
 ########################################################
 
+
+#A few examples with MS
+
+#We will try to simulate a population compatible with what we know from human demographic history.
+
+
+#Example 1: a human population of constant size.
+#human long-term effective population size=10,000
+#human per site neutral mutation rate = 1.10e-08
+#we want a sample of 50 individuals (remember we are diploids)
+#we want 10,000 replicates (sounds like a lot, but remember, MS is very fast!)
+
+the command line should be
+
+ms nsam nreps -t theta > example1.out
+
+theta=4*N*mu, where N is the diploid effective pop size and mu is the mutation rate per locus
+Human average gene length is between 10-15 kb, so let's assume 10Kb
+
+Calculate theta and run the above command
+
+
+now let's have a look at the output
+
+
+type
+
+
+less -S example1.out
+
+(use enter to keep moving)
+
+########################################################################################
+########################################################################################
+
+Example 2: 
+
+
