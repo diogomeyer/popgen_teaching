@@ -40,6 +40,34 @@ less -S example1.out
 ########################################################################################
 ########################################################################################
 
-Example 2: 
+ In reality, human demography is well studied, and we can make these simulations a bit more realistic.
+Example 2: human population with exponential growth happening since 148,000 years ago.
+(in reality, exponential is not the best way to describe it, but it is simpler to simulate)
 
+We need additional parameter now. We will run the following command
+
+ms nsam nreps -t θ -G α 
+
+The -t swithc  is for theta, and the -G swithc is for growth. Now we have to give a growth rate alpha.
+
+Current N (the one used for scalling): 14,474
+Past N: 7,310
+Remember from the slides that if we consider a generation time of 20 years for Homo sapiens, and that the current N for HS is 14474
+
+We would have X number of generations == 148,000 years
+
+Next, we divide that number of generations by (4*N) so we have this time in units of 4N.
+
+See if you can reach this value of t=1.278154
+
+Now that we have the time since the pop growth began, we can calculate the rate of growth using an exponential growth equation.
+See if you can reach the alpha value of alpha= 0.5345188
+
+emember to recalculate alpha with this N we provided (14,474), reaching the value of  6.36856
+
+
+Now we can run the command line (finally!)
+
+
+ms 100 10000 -t  6.36856 -G  0.5345188
 
