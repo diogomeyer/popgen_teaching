@@ -69,5 +69,17 @@ emember to recalculate alpha with this N we provided (14,474), reaching the valu
 Now we can run the command line (finally!)
 
 
-ms 100 10000 -t  6.36856 -G  0.5345188
+ms 100 10000 -t  6.36856 -G  0.5345188 > example2.out
 
+
+################################################################################################
+
+#Example 3
+
+#ideas?
+
+
+
+#################################################################################################
+
+#Now, with these 3 examples, use sample_stats and produce objects to be read in R and make plots.
