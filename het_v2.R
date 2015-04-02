@@ -1,21 +1,18 @@
 # ---------------------------------------------------------------------------- #
 # Parameters:
 # Pop size
-N <- 1000
+N <- 100
 
 # Number of generations
 ngens <- 2000
 
 # Number of populations
-npops <- 10
+npops <- 100
 
 # ---------------------------------------------------------------------------- #
 
 # Create matrices to store results.
 # Each row will be a generation and each column, a population.
-
-# Heterozygosities:
-H <- matrix(nrow = ngens, ncol = npops)
 
 # Allele frequencies:
 P <- matrix(nrow = ngens, ncol = npops) 
@@ -32,15 +29,14 @@ for(i in 1:npops) {
     pop <- sample(pop, replace = TRUE)
     P[j, i] <- mean(pop == 0)
   }
-  
-  # calculate the heterozygosity
-  H[, i] <- 2*p*(1-p)
 }
+
+H <- 2 * P * (1-P)
 
 # ---------------------------------------------------------------------------- #
 
 # plotting the heterozygosities:
-plot(NA, type = "n", xlim = c(0, ngens), ylim = c(0, 0.5),
+plot(NA, type = "n", xlim = c(1, ngens), ylim = c(0, 0.5),
      xlab = "generation", ylab = "H", main = "heterozygosity change")
 
 # plot H for each population (columns)
@@ -57,8 +53,7 @@ lines(h_theor, lty = 3, lwd = 3)
 
 # plotting the average allele frequency
 #### Check: this is not the correct plot
-plot(apply(P, 1, mean), type = "l", 
-     xlab = "generation", ylab = "average frequency")
+plot(rowMeans(P), type = "l", xlab = "generation", ylab = "average frequency")
 
 # ---------------------------------------------------------------------------- #
 
