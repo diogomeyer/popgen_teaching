@@ -22,20 +22,8 @@ P <- matrix(nrow = ngens, ncol = npops)
 
 # ---------------------------------------------------------------------------- #
 
-# for each population (N = 10)
-for(i in 1:npops) {
-  
-  pop <- rep(0:1, each = N/2)
-  P[1, i] <- mean(pop == 0)
-  
-  for(j in 2:ngens) {
-    pop <- sample(pop, replace = TRUE)
-    P[j, i] <- mean(pop == 0)
-  }
-  
-  # calculate the heterozygosity
-  H[, i] <- 2*p*(1-p)
-}
+ H <- 2 * P * (1-P)
+
 
 # ---------------------------------------------------------------------------- #
 
@@ -43,7 +31,7 @@ for(i in 1:npops) {
 plot(NA, type = "n", xlim = c(0, ngens), ylim = c(0, 0.5),
      xlab = "generation", ylab = "H", main = "heterozygosity change")
 
-# plot H for each population (columns)
+# plot H for each population (columns) individually. Noisy!
 apply(H, 2, lines, col = "grey", lty = 2)
 
 # plot the mean across generations (rows)
