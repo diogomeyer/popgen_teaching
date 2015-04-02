@@ -22,7 +22,7 @@ ngens <- 2000
 # vector:
 p <- numeric(ngens)
 
-# The 1st element of vector 'p' will be the allele frequency in 1st generation:
+# 1st element of vector 'p' will be the allele frequency in parent generation:
 p[1] <- mean(pop == 0)
 
 # Now we have to calculate the allele frequencies in the next generations.
