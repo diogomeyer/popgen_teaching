@@ -1,17 +1,17 @@
 # ---------------------------------------------------------------------------- #
 # Parameters:
 # Pop size
-N <- 100
+N <- 1000
 
 # Number of generations
 ngens <- 2000
 
 # Number of populations
-npops <- 100
+npops <- 10
 
 # ---------------------------------------------------------------------------- #
 
-# Create matrices to store results.
+# Create a matrix to store results.
 # Each row will be a generation and each column, a population.
 
 # Allele frequencies:
