@@ -39,7 +39,7 @@ H <- 2 * P * (1-P)
 plot(NA, type = "n", xlim = c(1, ngens), ylim = c(0, 0.5),
      xlab = "generation", ylab = "H", main = "heterozygosity change")
 
-# plot H for each population (columns)
+# plot H for each population (columns) individually. Noisy!
 apply(H, 2, lines, col = "grey", lty = 2)
 
 # plot the mean across generations (rows)
