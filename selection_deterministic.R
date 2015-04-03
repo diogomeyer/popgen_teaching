@@ -1,7 +1,7 @@
 # Deterministic selection models
 # Advantageous dominant mutation
 
-source("popgen_functions")
+source("popgen_functions.R")
 
 
 
