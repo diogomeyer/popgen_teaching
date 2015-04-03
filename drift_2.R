@@ -46,7 +46,7 @@ apply(H, 2, lines, col = "grey", lty = 2)
 lines(rowMeans(H))
 
 # Let's also draw the line of the theoretical decrease in the heterozygosity
-h_theor <- 0.5 * (1-(1/N))^(1:ngens)
+h_theor <- 0.5 * (1 - 1/N)^(1:ngens)
 lines(h_theor, lty = 3, lwd = 3)
 
 # ---------------------------------------------------------------------------- #
