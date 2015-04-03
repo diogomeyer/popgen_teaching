@@ -2,66 +2,125 @@
 #	Author: Bárbara Bitarello
 #
 #
-#	Last modified: 01.04.2015
+#	Last modified: 02.04.2015
 ########################################################
 
 
 #A few examples with MS
 
 #We will try to simulate a population compatible with what we know from human demographic history.
-
+#we will also try to compare TajD, number of segregating sites and pi for different demographic scenarios.
 
 #Example 1: simulating a human population of constant size.
 
+#Some info you need to have:
+
 #human long-term effective population size=10,000
-#human per site neutral mutation rate = 1.10e-08
-#we want a sample of 50 individuals (remember we are diploids)
+#human per site neutral mutation rate = 2.5.10e-08
+#for now let's simulate 10 samples of 5 chromosomes each.
 #we want 10,000 replicates (sounds like a lot, but remember, MS is very fast!)
-
-#the command line should be:
-
-ms nsam nreps -t theta > example1.out
-
-#theta=4*N*mu, where N is the diploid effective pop size and mu is the mutation rate per locus
-#Human average gene length is between 10-15 kb, so let's assume 10Kb
-
-#Calculate theta and run the above command
-
-
-#now let's have a look at the output
+#theta=4*N*u, where N is the diploid effective pop size and u is the mutation rate per locus
+#human average gene has something between 10-15 kb, so let's go with 10Kb
+#u=mutation rate per site * L
+#first, calculate theta.
 
 
 #type:
 
+ms nsam nreps -t theta   #replace the paramters with the appropriate values.
 
 less -S example1.out
 
 (use enter to keep moving)
 
 
+#now let's learn to use sample_stats
 
+#type:
+
+ms nsam nreps -t theta |sample_stats
+
+#use 10000 repliacates and 50 chromosomes
+
+ms nsam nreps -t theta|sample_stats|cut -f 2,4,6 > example1.stats.out
+
+#check the output
+
+
+###########################################
+###########################################
+
+
+#In reality, human demography is well studied, and we can make these simulations a bit more realistic.
+
+#Let's use actual data on human demography to investigate further.
+
+#Current N (the one used for scalling): 14,474
+#Past N: 7,310
+#let's consider the generation time for Homo sapiens as 20 years.
+
+
+#Example 2: human population with population expansion at 148,000 years ago.
+#at this point in time, the population size increase from 7,310 to 14474 (effective pop size)
+#(in reality, exponential is not the best way to describe it, but it is simpler to simulate)
+#we will need to calculate more parameters now in order to model the growth.
+
+#Fist: in MS, time is measured in units of 4N generations.
+Ex. say generation time is 20 years, and that something happenend 1000 years ago. 1000/20=50, so it was 50 generations ago, or 50/(4N) units of time.
+
+#so, first calculate the time at which the population expansion occured (148,000 years ago) in units of 4N generations. 
+#set the growth parameter also in terms of 4. For isntance, if current pop size is 20,000 and the past pop size was 5,000, 5,000/20,000=0.25. No divide that by 4*N and you have the growth parameter in terms of 4N units.
+
+
+#So time= (number of years/generation time)/(4*No), where No is always the current population size.
+#growth parameter = (Past N/current N)/(4*N)
+
+
+#now, run:
+#use 10000 repliacates and 50 chromosomes:
+ms nsam nreps -t theta -eN time growth_parameter |sample_stats|cut -f 2,4,6 > example2.stats.out
+
+#Example 3: a population suffering a bottleneck
+
+Let's assume that this 'human' population suffered a bottleneck 51,000 years ago, going from 14474 to 1861. 
+#Hint, theta will change, and the Ne for scalling now will be 1861. Remember this makes no difference in the results, what is used for scalling, as long
+#as it is always the same.
+
+#first, recalculate theta using the same parameters, but 1,861 (N)
+#calculate the time of the event: divide years by generation time and then by 4N
+#calculate the growth parameter and run the command (very similar to the previous example)
+
+#use 10000 repliacates and 50 chromosomes
+
+ms nsam nreps -t theta -eN time growth_parameter|sample_stats|cut -f 2,4,6  > example3.stats.out
+
+################################################################################################
+###############################################################################################
 ##Questions:
 
 #1) Collect the values of S (number of segregating sites), Pi (nucloeotide diversity) and Tajima's D.
-
 #Hint: use sample_stats, which is installed in the same directory as ms.
+#you already did this!
 
-#Hint 2: we will pipe the output of ms to produce the input for sample_stats, like this
-
-ms nsam nreps -t theta | sample_stats|less -S #first have a look at the output using less
+#but do it again (all three examples) and increase the number of reps to 10,000, so we have a decent distribution.
 
 
-ms nsam nreps -t theta | sample_stats | cut -f 2,4,6,8,10 > example1.stats.txt #produce a file with the output file
-
-#Hint 3: start an R session and type
+2)Start an R session and type:
 
 read.table('example1.stats.txt') -> ex1
-colnames(ex1)<-c('pi', 'ss', 'D', 'thetaH', 'H')
 
+read.table('example2.stats.txt') -> ex2
+
+read.table('example3.stats.txt') -> ex3
+
+colnames(ex1)<-c('pi', 'ss', 'D')
+
+colnames(ex2)<-c('pi', 'ss', 'D')
+colnames(ex2)<-c('pi', 'ss', 'D')
 #plot Pi histogram and the expectation (mean)
 hist(ex1$pi, nclass=100, main='Constant population size', xlab='Pi')
 abline(col='orange', lty=2,v=mean(ex1$pi), lwd=2)
-#note that the mean is very close to 4.4, which was the theta parameter we simulated.
+#note that the mean is very close to 14.474, which was the theta parameter we simulated.
 #you can check by typing
 
 mean(ex1$pi)
@@ -87,67 +146,13 @@ abline(col='orange', lty=2,v=mean(ex1$D), lwd=2)
 #essentially zero, as expected for sequences evolving under neutrality.
 
 
-#Now let's see what happens when we complicate the demographic model a bit.
-
-
-########################################################################################
-########################################################################################
-
-#In reality, human demography is well studied, and we can make these simulations a bit more realistic.
-
-#Example 2: human population with exponential growth happening since 148,000 years ago.
-#(in reality, exponential is not the best way to describe it, but it is simpler to simulate)
-
-#We need additional parameter now. We will run the following command
-
-ms nsam nreps -t θ -G α 
-
-#The -t swithc  is for theta (as in example 1), and the -G swithc is for growth. Now we have to give a growth rate alpha.
-
-#here are the more accurate Ne values used for human demographic models.
-
-#Current N (the one used for scalling): 14,474
-#Past N: 7,310
-#Remember from the slides that if we consider a generation time of 20 years for Homo sapiens, and that the current N for HS is 14474
-
-#We would have X number of generations == 148,000 years
-
-#Next, we divide that number of generations by (4*N) so we have this time in units of 4N.
-
-
-#So t= (number of years/generation time)/(4*No), where No is always the current population size.
-
-#See if you can reach this value of t=1.278154
-
-Now that we have the time since the pop growth began, we can calculate the rate of growth using an exponential growth equation.
-See if you can reach the alpha value of alpha= 0.5345188
-
-emember to recalculate alpha with this N we provided (14,474), reaching the value of  6.36856
-
-
-Now we can run the command line (finally!)
-
-
-ms 100 10000 -t  6.36856 -G  0.5345188 |sample_stats|cut -f 2,4,6,8,10 > example2.stats.txt  #notice theta changed from 4.4 to 6.37, because we have changed the pop size from 10,000 to 14474
-
-
-
-#repeat the exercises in R for example 2.
-
-#simply replace ex1 for ex2 and change the plot name from ' constant population size' to 'exponential growth'
-
-
-
-#compare results
-
+##3)compare these results with examples 2 and 3
 #remember you already have ex1 in your R session, so you can re-plot and compare both.
 
 
-read.table('example2.stats.txt') -> ex2
-colnames(ex2)<-c('pi', 'ss', 'D', 'thetaH', 'H')
 
 #plot Pi histogram and the expectation (mean)
-hist(ex2$pi, nclass=100, main='Exponential growth', xlab='Pi')
+hist(ex2$pi, nclass=100, main='Growth', xlab='Pi')
 abline(col='orange', lty=2,v=mean(ex2$pi), lwd=2)
 #note that the mean is very close to 5, which is  LOWER than the theta parameter we simulated.
 #you can check by typing
@@ -158,7 +163,7 @@ mean(ex2$pi)
 #now let's see 'ss' (segragating sites)
 
 
-hist(ex2$ss, nclass=100, main='Exponential growth')
+hist(ex2$ss, nclass=10, main='Growth')
 abline(col='orange', lty=2,v=mean(ex2$ss), lwd=2)
 
 
@@ -166,9 +171,9 @@ abline(col='orange', lty=2,v=mean(ex2$ss), lwd=2)
 
 par(mfrow=c(2,1))
 
-hist(ex1$ss, nclass=100, main='Constant')
+hist(ex1$ss, nclass=10, main='Constant')
 abline(col='orange', lty=2,v=mean(ex1$ss), lwd=2)
-hist(ex2$ss, nclass=100, main='Exponential')
+hist(ex2$ss, nclass=10, main='Growth')
 abline(col='orange', lty=2,v=mean(ex2$ss), lwd=2)
 
 #again, you can check the actual mean by typing:
@@ -180,13 +185,22 @@ mean(ex2$ss)
 #finally, tajima's D
 
 
-hist(ex2$D, nclass=100, main='Exponential growth')
+hist(ex2$D, nclass=100, main='Growth')
 abline(col='orange', lty=2,v=mean(ex2$D), lwd=2)
 #below zero, as expected for sequences with defficiency of Pi in relation to SS.
 #compare
 
+hist(ex2$D, nclass=100, main='Growth')
+abline(col='orange', lty=2,v=mean(ex2$D), lwd=2)
+#below zero, as expected for sequences with defficiency of Pi in relation to SS.
+#compare
+
+
+
+
 mean(ex1$D)
 mean(ex2$D)
+mean(ex3$D)
 #of course this is not a formal comparison, but we can already see that there is a difference.
 
 ################################################################################################
