@@ -1,0 +1,78 @@
+#--------------------------------------------------------------------#
+
+# 1) About the Variant Call Format (VCF)
+
+# https://samtools.github.io/hts-specs/VCFv4.2.pdf
+
+# VCF is a tab-delimited file developed by the 1000 Genomes Project
+# to store DNA polymorphism data together with rich annotations.
+# VCF is usually stored in a compressed manner and data can be
+# very fastly retrieved from them.
+
+#--------------------------------------------------------------------#
+
+# 2) About VCFTOOLS
+
+# http://vcftools.sourceforge.net/man_0112b.html
+
+# VCFtools is a software that implements various utilities for
+# processing VCF files.
+
+# 2.1) Example: get allele frequencies from all variants in a VCF
+
+# Commands:
+# --gzvcf to specify the gzipped (compressed) vcf file
+# --freq to output allele frequency for each site in "out.frq" file
+# --out to specify another name for the output file
+
+vcftools --gzvcf chr15.vcf.gz --freq --out chr15
+#TIME: 7 sec
+
+#--------------------------------------------------------------------#
+
+# 3) About FST outlier tests for selection
+
+# Example from Beleza et al (2012): SLC24A5 gene has european-specific
+# variant for light skin.
+
+# Norton et al (2007) found a SNP in this gene had high FST when
+# European populaitons were compared to Asians, Africans or Americans.
+# This SNP was rs1426654. Check out its frequency around the globe
+# at http://popgen.uchicago.edu/ggv/
+
+# In Norton's case, they had a candidate gene and investigated the 
+# signature of selection of high FST.
+
+# Other studies are interested in FINDING new candidate regions.
+# One strategy to do so is to look for regions of extreme FST.
+
+#--------------------------------------------------------------------#
+
+# Using VCFtools to calculate FST + R to visualize FST distribution
+
+# 4) Run vcftools to get Fst
+
+# With CEU vs. YRI population; per site
+
+
+# Commands:
+# --weir-fst-pop    give file with the IDs of individuals from each
+#                   population. Use it 2 or more times to determine
+#                   among which populations FST will be calculated
+
+vcftools --gzvcf chr15.vcf.gz --weir-fst-pop CEUindivs --weir-fst-pop YRIindivs --out CEU_YRI
+#TIME: 10 sec
+
+# Explore:
+# 4.1) Different pairs of populations
+
+vcftools --gzvcf chr15.vcf.gz --weir-fst-pop CEUindivs --weir-fst-pop JPTindivs --out CEU_JPT
+#TIME: 9 sec
+
+# 4.2) Calculate Fst per window
+
+vcftools --gzvcf chr15.vcf.gz --weir-fst-pop CEUindivs --weir-fst-pop JPTindivs  --fst-window-size 10000 --fst-window-step 5000 --out CEU_JPT_w10kb_s5kb
+#TIME: 6 sec
+
+# 5) R script to plot Manhattan plot: manhattan.R
+# Open it in RStudio
