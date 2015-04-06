@@ -101,18 +101,33 @@ ms 100 1000 -t 14.4 -eN 4 8.723289e-06|sample_stats|cut -f 2,4,6 > example2_t4.s
 
 
 ###############################################################################################
+
+#Copying files to local machine:
+
+#Open Filezilla
+
+
+#host is lem.ib.usp.br
+
+#user name
+
+#password
+
+#port 22
+
+#find the files you generated and copy to a local folder in your computer. (suggestion 'aula_2' in your home folder.)
+
+#open R studio
+
+################################################################################################
 ##Questions:
 
-#1) Collect the values of S (number of segregating sites), Pi (nucloeotide diversity) and Tajima's D.
-#Hint: use sample_stats, which is installed in the same directory as ms.
-#you already did this!
-
-#but do it again (all three examples) and increase the number of reps to 10,000, so we have a decent distribution.
+#1) Collect the values of S (number of segregating sites), Pi (nucloeotide diversity) and Tajima's D for all sets of simulations
 
 
 2)Start an R session and type:
 
-read.table('example1.stats.txt') -> ex1
+read.table('~/example1.stats.txt') -> ex1
 
 read.table('example2.stats.txt') -> ex2
 
