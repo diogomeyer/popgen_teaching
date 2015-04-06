@@ -140,7 +140,7 @@ abline(col='orange', lty=2,v=mean(ex1$pi), lwd=2)
 mean(ex1$pi)
 
 
-#now let's see 'ss' (segragating sites)
+#now let's see 'ss' (segregating sites)
 
 
 hist(ex1$ss, nclass=100, main='Constant population size')
