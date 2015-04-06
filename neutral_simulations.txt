@@ -97,14 +97,14 @@ ms 100 1000 -t 14.4 -eN 0.1278154 8.723289e-06||sample_stats|cut -f 2,4,6 > exam
 #Example 3: a population suffering a bottleneck
 
 Let's assume that this 'human' population suffered a bottleneck 51,000 years ago, going from 14474 to 1861. 
-#Hint, theta will change, and the Ne for scalling now will be 1861. Remember this makes no difference in the results, what is used for scalling, as long
+#Hint, theta will change, and the Ne for scaling now will be 1861. Remember this makes no difference in the results, what is used for scaling, as long
 #as it is always the same.
 
 #first, recalculate theta using the same parameters, but 1,861 (N)
 #calculate the time of the event: divide years by generation time and then by 4N
 #calculate the growth parameter and run the command (very similar to the previous example)
 
-#use 10000 repliacates and 50 chromosomes
+#use 10000 replicates and 50 chromosomes
 
 ms nsam nreps -t theta -eN time growth_parameter|sample_stats|cut -f 2,4,6  > example3.stats.out
 
