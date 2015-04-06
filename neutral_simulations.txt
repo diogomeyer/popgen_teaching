@@ -67,17 +67,23 @@ less -S example1.stats.out #check out the output again
 
 
 #So time= (number of years/generation time)/(4*No), where No is always the current population size.
-#growth parameter = (Past N/current N)/(4*N)
+#growth parameter = (Past N/current N)/(4*N)= 8.723289e-06
 
 #so, first calculate the time at which the population expansion occured (148,000 years ago) in units of 4N generations. 
 #set the growth parameter also in terms of 4. For instance, if current pop size is 20,000 and the past pop size was 148000/20=7,400 generations.
-#Now divide that by 4*N and you have the growth parameter in terms of 4N units. 7,400/4*14,474= 0.1278154
+#Now divide that by 4*N and you have the growth parameter in terms of 4N units. 7400/4*14474= 0.1278154
 
+#now, run:
+
+ms nsam nreps -t theta -eN time -growth |sample_stats|cut -f 2,4,6 > example2.stats.out
 
 
 #now, run:
-#use 10000 repliacates and 50 chromosomes:
-ms nsam nreps -t theta -eN time growth_parameter |sample_stats|cut -f 2,4,6 > example2.stats.out
+
+ms nsam nreps -t theta -eN time -growth |sample_stats|cut -f 2,4,6 > example2.stats.out
+
+
+
 
 #Example 3: a population suffering a bottleneck
 
