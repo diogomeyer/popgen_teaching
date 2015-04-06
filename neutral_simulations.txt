@@ -89,26 +89,17 @@ ms 100 1000 -t 14.4 -eN 0.1278154 8.723289e-06||sample_stats|cut -f 2,4,6 > exam
 
 #########################
 #########################
+#Now let's run the same command with expansion happening at times=0.01, 0.05,0.5, 1 and 4
+#This is a way of looking at what happens immediately after an expansion (t=0.001), or a long time after (t=10)
 
 
+ms 100 1000 -t 14.4 -eN 0.01 8.723289e-06|sample_stats|cut -f 2,4,6 > example2_t0.01.stats.out
+ms 100 1000 -t 14.4 -eN 0.05 8.723289e-06|sample_stats|cut -f 2,4,6 > example2_t0.05.stats.out
+ms 100 1000 -t 14.4 -eN 0.5 8.723289e-06|sample_stats|cut -f 2,4,6 > example2_t0.5.stats.out
+ms 100 1000 -t 14.4 -eN 1 8.723289e-06|sample_stats|cut -f 2,4,6 > example2_t1.stats.out
+ms 100 1000 -t 14.4 -eN 4 8.723289e-06|sample_stats|cut -f 2,4,6 > example2_t4.stats.out
 
 
-
-#Example 3: a population suffering a bottleneck
-
-Let's assume that this 'human' population suffered a bottleneck 51,000 years ago, going from 14474 to 1861. 
-#Hint, theta will change, and the Ne for scaling now will be 1861. Remember this makes no difference in the results, what is used for scaling, as long
-#as it is always the same.
-
-#first, recalculate theta using the same parameters, but 1,861 (N)
-#calculate the time of the event: divide years by generation time and then by 4N
-#calculate the growth parameter and run the command (very similar to the previous example)
-
-#use 10000 replicates and 50 chromosomes
-
-ms nsam nreps -t theta -eN time growth_parameter|sample_stats|cut -f 2,4,6  > example3.stats.out
-
-################################################################################################
 ###############################################################################################
 ##Questions:
 
@@ -222,3 +213,23 @@ mean(ex3$D)
 
 
 
+
+
+
+
+
+#Example 3: a population suffering a bottleneck
+
+Let's assume that this 'human' population suffered a bottleneck 51,000 years ago, going from 14474 to 1861. 
+#Hint, theta will change, and the Ne for scaling now will be 1861. Remember this makes no difference in the results, what is used for scaling, as long
+#as it is always the same.
+
+#first, recalculate theta using the same parameters, but 1,861 (N)
+#calculate the time of the event: divide years by generation time and then by 4N
+#calculate the growth parameter and run the command (very similar to the previous example)
+
+#use 10000 replicates and 50 chromosomes
+
+ms nsam nreps -t theta -eN time growth_parameter|sample_stats|cut -f 2,4,6  > example3.stats.out
+
+################################################################################################
