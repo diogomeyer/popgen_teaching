@@ -52,8 +52,8 @@ less -S example1.stats.out #check out the output again
 
 #going back to the slide presented before, we could model the human population including an expansion in Ne.
 
-#Current N (the one used for scalling): 14,474
-#Past N: 7,310
+#Current N (the one used for scaling): 14,474
+#N before expansion: 7,310
 #let's consider the generation time for Homo sapiens as 20 years.
 
 
@@ -61,15 +61,18 @@ less -S example1.stats.out #check out the output again
 #at this point in time, the population size increases according to what was presented above.
 #we will need to calculate more parameters now in order to model the growth.
 
-#Fist: in MS, time is measured in units of 4N generations.
-Ex. say generation time is 20 years, and that something happenend 1000 years ago. 1000/20=50, so it was 50 generations ago, or 50/(4N) units of time.
-
-#so, first calculate the time at which the population expansion occured (148,000 years ago) in units of 4N generations. 
-#set the growth parameter also in terms of 4. For isntance, if current pop size is 20,000 and the past pop size was 5,000, 5,000/20,000=0.25. No divide that by 4*N and you have the growth parameter in terms of 4N units.
+#First: in MS, time is measured in units of 4N generations.
+#Ex. say generation time is 20 years, and that something happened 1000 years ago. 1000/20=50, 
+#so it was 50 generations ago, or 50/(4N) units of time.
 
 
 #So time= (number of years/generation time)/(4*No), where No is always the current population size.
 #growth parameter = (Past N/current N)/(4*N)
+
+#so, first calculate the time at which the population expansion occured (148,000 years ago) in units of 4N generations. 
+#set the growth parameter also in terms of 4. For instance, if current pop size is 20,000 and the past pop size was 148000/20=7,400 generations.
+#Now divide that by 4*N and you have the growth parameter in terms of 4N units. 7,400/4*14,474= 0.1278154
+
 
 
 #now, run:
