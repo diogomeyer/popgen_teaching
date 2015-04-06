@@ -73,14 +73,23 @@ less -S example1.stats.out #check out the output again
 #set the growth parameter also in terms of 4. For instance, if current pop size is 20,000 and the past pop size was 148000/20=7,400 generations.
 #Now divide that by 4*N and you have the growth parameter in terms of 4N units. 7400/4*14474= 0.1278154
 
+
+#so the command should be like this
+
+ms nsam nreps -t theta -eN time_of_growth growth_parameter |sample_stats|cut -f 2,4,6 > example2.stats.out
+
+#which with the actual values is:
+
+ms 100 1000 -t 14.4 -eN 0.1278154 8.723289e-06|less
+
 #now, run:
 
-ms nsam nreps -t theta -eN time -growth |sample_stats|cut -f 2,4,6 > example2.stats.out
+ms 100 1000 -t 14.4 -eN 0.1278154 8.723289e-06||sample_stats|cut -f 2,4,6 > example2.stats.out
 
 
-#now, run:
+#########################
+#########################
 
-ms nsam nreps -t theta -eN time -growth |sample_stats|cut -f 2,4,6 > example2.stats.out
 
 
 
