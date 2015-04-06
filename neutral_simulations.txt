@@ -28,7 +28,7 @@
 #copy and paste into terminal
 
 ms 5 10 -t 2|less -S #
-ms 5 10 -t 10|less -S # incrases Nr. segregating sites
+ms 5 10 -t 10|less -S # increases Nr. segregating sites
 
 #now,use 10000 repliacates and 50 individuals (100 chromosomes)
 
@@ -37,7 +37,7 @@ ms 100 1000 -t 10|less -S
 
 #now let's learn to use sample_stats
 
-ms 100 1000 -t 10|sample_stats|less -S
+ms 100 1000 -t 10|sample_stats|less
 
 #now, save the output
 ms 100 1000 -t 10|sample_stats|cut -f 2,4,6 > example1.stats.out
@@ -51,8 +51,6 @@ less -S example1.stats.out #check out the output again
 #As mentioned, in reality, human demography is well studied, and we can make these simulations a bit more realistic.
 
 #going back to the slide presented before, we could model the human population including an expansion in Ne.
-
-#So let's use actual data on human demography to investigate further.
 
 #Current N (the one used for scalling): 14,474
 #Past N: 7,310
