@@ -110,7 +110,7 @@ ms 100 1000 -t 10|sample_stats|less
 #from sample_stats in a file
 
 #save the output
-ms 100 1000 -t 10|sample_stats|cut -f 2,4,6 > pop.const.stats.txt
+ms 100 1000 -t 10|sample_stats|cut -f 2,4,6 > pop.const.stats.out
 
 #check out the output again
 less pop.const.N.txt 
@@ -146,7 +146,7 @@ ms 100 1000 -t 14.474 -eN 0.1278154 8.711355e-06|less
 
 #Now, as before, save the output from 'sample_stats' in a file:
 
-ms 100 1000 -t 14.474 -eN 0.1278154 8.711355e-06|sample_stats|cut -f 2,4,6 > pop.t0.12.stats.txt
+ms 100 1000 -t 14.474 -eN 0.1278154 8.711355e-06|sample_stats|cut -f 2,4,6 > pop.t0.12.stats.out
 
 
 #########################################################
