@@ -14,10 +14,17 @@
 ####################################
 ####################################
 
+#1)In your local machine, open an Rstudio session, so you can do some calculations.
 
-#1)In the server, type
+#2) MAC or LINUX: go to the command line and ssh to the server:
 
-cd /home/BIO5789/<your_user_name>/
+ssh <your_user@lem.ib.usp.br
+
+#3) Windows: open PuTTY, put your user name, password and 'lem.ib.usp.br' in the appropriate spaces. Port # is '22'.
+
+#4)In the server, type:
+
+cd /home/BIO5789/<your_user_name>/   #this will take you to your directory
 
 #eg. /home/BIO5789/ouvinte1
 
@@ -31,12 +38,14 @@ ms 5 1 -t 10
 #check the outputs.Each '//' limits the output from a replicate (in this case only 1) and each row of 0s and 1s represents one of the 5 sequences we are
 #simulating.
 
-#in the second case, we see that the number of segregating sites is higher than in the first. Why?
+#Question 1: can you guess what 0 and 1 mean in the context? Notice the length of each row of 0/1 is the number of segregating sites.
+
+#Questions 2: In the second case, we see that the number of segregating sites is higher than in the first. Why?
 
 #Answer: the '-t' indicates that what comes after that is the theta parameter (4Nu). The higher theta, the higher the number of mutations
 #happening along the genealogy.
 
-#3) now try the same command as in 2, but replacing '1' with 3
+#3) now try the same command as in 2, but replacing '1' with 3:
 
 ms 5 3 -t 10  #now we have three replicates.
 
@@ -46,7 +55,7 @@ ms 5 3 -t 10  #now we have three replicates.
 ################################################################################################
 ################################################################################################
 #Part II #######################################################################################
-#RUNNNING SIMULATIONS FOLLOWING A HUMAN DMOGRAPHIC MODEL #######################################
+#RUNNNING SIMULATIONS FOLLOWING A HUMAN DMOGRAPHIC MODEL ######### ######### ####### ####### ###
 ################################################################################################
 ################################################################################################
 
@@ -65,242 +74,150 @@ ms 5 3 -t 10  #now we have three replicates.
 
 
 #############################################################
-#Example 1: simulating a human population of constant size.##
+#Exercise 1: simulating a human population of constant size.##
 #############################################################
 
 
-#Background info:
+########Background info for simulations: #############
 
-#human long-term effective population size=10,000
-#human per site neutral mutation rate = 2.5.10e-08
+#human long-term effective population size=10,000 (this will change in the next exercise)
+#human per site neutral mutation rate (mu) = 2.5.10e-08 (this will remain constant in the next exercises, it is the average genomic
+#rate for humans.
 #we want 10,000 replicates (sounds like a lot, but remember, MS is very fast!)
-#theta=4*N*u, where N is the diploid effective pop size and u is the mutation rate per locus
-#human average gene has something between 10-15 kb, so let's go with 10Kb
-#u=mutation rate per site * L
+#theta=4*N*u, where N is the diploid effective pop size (see above) and u is the mutation rate per locus (so, mu*L, where 'L' is
+#the length of the sequence we wish to simulate.
+#human average gene has something between 10-15 kb, so let's go with 10Kb (10000 bp).
 #first, calculate theta.
 
-#theta=10
+#theta=4*N*mu*L=10 #chek that you understand this!
 
-#copy and paste into terminal
 
-ms 5 10 -t 2|less -S #
-ms 5 10 -t 10|less -S # increases Nr. segregating sites
+#########Begin simulating #############
+#Before, we only used 3 replicates of 5 sequences. Now, we will have 1000 replicates of 50 diploid individuals (100 sequences)
+#copy and paste into command line:
 
-#now,use 10000 repliacates and 50 individuals (100 chromosomes)
+ms 100 1000 -t 10|less   #the pipe takes the output from the previous command and runs a new command using that output as input.
 
-ms 100 1000 -t 10|less -S
-(use enter to keep moving)
+#(use enter to keep moving)
 
-#now let's learn to use sample_stats
+#Now, take the output from those simulations and use the program 'sample_stats' (installed along with 'ms') to calculate some
+#summary statistics
+#copy and paste:
 
 ms 100 1000 -t 10|sample_stats|less
 
-#now, save the output
-ms 100 1000 -t 10|sample_stats|cut -f 2,4,6 > example1.stats.out
+#notice we have 5 collumns. In reality, we are only interested in the first three for now, so we will save the output 
+#from sample_stats in a file
 
-less -S example1.stats.out #check out the output again
-#in this file we have a set of statistics we will look into later.
+#save the output
+ms 100 1000 -t 10|sample_stats|cut -f 2,4,6 > pop.const.stats.txt
 
-###########################################
-###########################################
+#check out the output again
+less pop.const.N.txt 
+#now let's complicate the model!
 
-#As mentioned, in reality, human demography is well studied, and we can make these simulations a bit more realistic.
+#############################################################
+#Exercise 2: simulating a human population with increase in N#
+#############################################################
 
-#going back to the slide presented before, we could model the human population including an expansion in Ne.
+#As mentioned earlier, in reality, human demography is well studied, and we can make these simulations a bit more realistic.
+#In the African population, there was a ~2-fold increase in the population size around 148,000 years ago. We can model that 'easily'.
 
-#Current N (the one used for scaling): 14,474
-#N before expansion: 7,310
-#let's consider the generation time for Homo sapiens as 20 years.
+########Background info for simulations: #############
+#time of the event: 148000 years ago
+#assumed generation time for H.sapiens: 20 years  #some people use 15, some use 25, depends on your inclination.
+#so the time, in generations, is: 148000/20=7400 generations
+#MS likes parameters to be modelled in termsof 'units of 4N', and this 'N' is always the current one.
+#So, actually, the time of the event should be written as: 
+7400/(4*N)  == 0.1278154
+  #Current N (the one used for scaling): 14,474
+  #N before expansion: 7,300
+#theta has to be recalculated: 4*14474*(2.5*10^-8)*
+#So time= (number of years/generation time)/(4*N) = 0.1278154
+#growth_paramter = (Past N/Current N)/(4*N)==  0.5043526/(4*14474)== 
 
+#the command line code will look like this
 
-#Example 2: human population with population expansion at 148,000 years ago.
-#at this point in time, the population size increases according to what was presented above.
-#we will need to calculate more parameters now in order to model the growth.
-
-#First: in MS, time is measured in units of 4N generations.
-#Ex. say generation time is 20 years, and that something happened 1000 years ago. 1000/20=50, 
-#so it was 50 generations ago, or 50/(4N) units of time.
-
-
-#So time= (number of years/generation time)/(4*No), where No is always the current population size.
-#growth parameter = (Past N/current N)/(4*N)= 8.723289e-06
-
-#so, first calculate the time at which the population expansion occured (148,000 years ago) in units of 4N generations. 
-#set the growth parameter also in terms of 4. For instance, if current pop size is 20,000 and the past pop size was 148000/20=7,400 generations.
-#Now divide that by 4*N and you have the growth parameter in terms of 4N units. 7400/4*14474= 0.1278154
-
-
-#so the command should be like this
-
-ms nsam nreps -t theta -eN time_of_growth growth_parameter |sample_stats|cut -f 2,4,6 > example2.stats.out
+ms nsam nreps -t theta -eN time_of_growth growth_parameter |sample_stats|cut -f 2,4,6 > some.file.name.txt
 
 #which with the actual values is:
 
-ms 100 1000 -t 14.4 -eN 0.1278154 8.723289e-06|less
+ms 100 1000 -t 14.474 -eN 0.1278154 8.711355e-06|less
 
-#now, run:
+#Now, as before, save the output from 'sample_stats' in a file:
 
-ms 100 1000 -t 14.4 -eN 0.1278154 8.723289e-06||sample_stats|cut -f 2,4,6 > example2.stats.out
-
-
-#########################
-#########################
-#Now let's run the same command with expansion happening at times=0.01, 0.05,0.5, 1 and 4
-#This is a way of looking at what happens immediately after an expansion (t=0.001), or a long time after (t=10)
+ms 100 1000 -t 14.474 -eN 0.1278154 8.711355e-06|sample_stats|cut -f 2,4,6 > pop.t0.12.stats.txt
 
 
-ms 100 1000 -t 14.4 -eN 0.01 8.723289e-06|sample_stats|cut -f 2,4,6 > example2_t0.01.stats.out
-ms 100 1000 -t 14.4 -eN 0.05 8.723289e-06|sample_stats|cut -f 2,4,6 > example2_t0.05.stats.out
-ms 100 1000 -t 14.4 -eN 0.5 8.723289e-06|sample_stats|cut -f 2,4,6 > example2_t0.5.stats.out
-ms 100 1000 -t 14.4 -eN 1 8.723289e-06|sample_stats|cut -f 2,4,6 > example2_t1.stats.out
-ms 100 1000 -t 14.4 -eN 4 8.723289e-06|sample_stats|cut -f 2,4,6 > example2_t4.stats.out
+#########################################################
+#Exercise 3: Explore other times for the expansion event
+##########################################################
+
+#In the previous exercise we used actual estimates for the timing of the expansion event in humans. 
+#Now, relaxing a bit about simulating actual human demographic data, let's explore what happens if we change the
+#timing of the expansion event.
+#Note: remember these simulations go from present to past. If an expansion event occured 0.12 (*4N) generations ago,
+#this means that the population has had around 7,000 generations to evolve.
+#If we change this timing to, say, 1 (i.e, 4N generations), then the population has had a longer time to evolve since the 
+#event. Because the sample we collect from the simulations if of the 'present' time, by changing the time of events we can have 
+#an idea of how long it takes for a population to recover from such an event (in terms of SS, Tajima's D, etc)
+#Changing the timing of expansion is a way of looking at what happens immediately after an expansion (t=0.01), or a long time after (t=4).
+
+#######Let's change the timing of the expansion event and save the output ################
+#Run simualtions with the expansion event occuring at times={0.01, 0.05, 0.5, 1, 4} (in the previosu exercise the time was 0.12)
+
+ms 100 1000 -t 14.4 -eN 0.01 8.711355e-06|sample_stats|cut -f 2,4,6 > pop.t0.01.stats.out
+ms 100 1000 -t 14.4 -eN 0.05 8.711355e-06|sample_stats|cut -f 2,4,6 > pop.t0.05.stats.out
+ms 100 1000 -t 14.4 -eN 0.5 8.711355e-06|sample_stats|cut -f 2,4,6 > pop.t0.5.stats.out
+ms 100 1000 -t 14.4 -eN 1 8.711355e-06|sample_stats|cut -f 2,4,6 > pop.t1.stats.out
+ms 100 1000 -t 14.4 -eN 4 8.711355e-06|sample_stats|cut -f 2,4,6 > pop.t4.stats.out
 
 
 ###############################################################################################
-
+###############################################################################################
+#Part IV: CoPYING FILES INTO LOCAL MACHINE ########### ########### ########### ########### ####
+###############################################################################################
+###############################################################################################
 #Copying files to local machine:
 
-#Open Filezilla
-
+#Open Filezilla and fill in:
 
 #host is lem.ib.usp.br
-
 #user name
-
 #password
-
 #port 22
 
-#find the files you generated and copy to a local folder in your computer. (suggestion 'aula_2' in your home folder.)
+#find the files you generated in 'lem' and copy to a local folder in your computer. 
+#Suggestion: create a folder in your home directory called 'bio5789' and put them there. It will help with the R script.
 
 #open R studio
 
-################################################################################################
-##Questions:
+#Now go to the file called 'simulations.r' on this webpage.
 
-#1) Collect the values of S (number of segregating sites), Pi (nucloeotide diversity) and Tajima's D for all sets of simulations
+#PS: if you really liked the experience of simulating under a coalescent framework, you can try the block below at home.
+##############################################################
 
+#############################################################
+## THE FOLLOWING BLOCK IS OPTIONAL ##########################
+#############################################################
+#############################################################
 
-2)Start an R session and type:
+##############################################################
+#Exercise 3: a population suffering a bottleneck
+##############################################################
 
-read.table('~/example1.stats.txt') -> ex1
-
-read.table('example2.stats.txt') -> ex2
-
-read.table('example3.stats.txt') -> ex3
-
-colnames(ex1)<-c('pi', 'ss', 'D')
-
-colnames(ex2)<-c('pi', 'ss', 'D')
-colnames(ex2)<-c('pi', 'ss', 'D')
-#plot Pi histogram and the expectation (mean)
-hist(ex1$pi, nclass=100, main='Constant population size', xlab='Pi')
-abline(col='orange', lty=2,v=mean(ex1$pi), lwd=2)
-#note that the mean is very close to 14.474, which was the theta parameter we simulated.
-#you can check by typing
-
-mean(ex1$pi)
-
-
-#now let's see 'ss' (segregating sites)
-
-
-hist(ex1$ss, nclass=100, main='Constant population size')
-abline(col='orange', lty=2,v=mean(ex1$ss), lwd=2)
-
-
-#again, you can check the actual mean by typing:
-
-mean(ex1$ss)
-
-
-#finally, tajima's D
-
-
-hist(ex1$D, nclass=100, main='Constant population size')
-abline(col='orange', lty=2,v=mean(ex1$D), lwd=2)
-#essentially zero, as expected for sequences evolving under neutrality.
-
-
-##3)compare these results with examples 2 and 3
-#remember you already have ex1 in your R session, so you can re-plot and compare both.
-
-
-
-#plot Pi histogram and the expectation (mean)
-hist(ex2$pi, nclass=100, main='Growth', xlab='Pi')
-abline(col='orange', lty=2,v=mean(ex2$pi), lwd=2)
-#note that the mean is very close to 5, which is  LOWER than the theta parameter we simulated.
-#you can check by typing
-
-mean(ex2$pi)
-
-
-#now let's see 'ss' (segragating sites)
-
-
-hist(ex2$ss, nclass=10, main='Growth')
-abline(col='orange', lty=2,v=mean(ex2$ss), lwd=2)
-
-
-#compare segregating sites for both examples. Type
-
-par(mfrow=c(2,1))
-
-hist(ex1$ss, nclass=10, main='Constant')
-abline(col='orange', lty=2,v=mean(ex1$ss), lwd=2)
-hist(ex2$ss, nclass=10, main='Growth')
-abline(col='orange', lty=2,v=mean(ex2$ss), lwd=2)
-
-#again, you can check the actual mean by typing:
-
-mean(ex2$ss)
-
-
-#it is expected that we shoudl have more SS here, because the theta parameter is increased in relation to example 1.
-#finally, tajima's D
-
-
-hist(ex2$D, nclass=100, main='Growth')
-abline(col='orange', lty=2,v=mean(ex2$D), lwd=2)
-#below zero, as expected for sequences with defficiency of Pi in relation to SS.
-#compare
-
-hist(ex2$D, nclass=100, main='Growth')
-abline(col='orange', lty=2,v=mean(ex2$D), lwd=2)
-#below zero, as expected for sequences with defficiency of Pi in relation to SS.
-#compare
-
-
-
-
-mean(ex1$D)
-mean(ex2$D)
-mean(ex3$D)
-#of course this is not a formal comparison, but we can already see that there is a difference.
-
-################################################################################################
-
-
-
-
-
-
-
-
-
-#Example 3: a population suffering a bottleneck
-
-Let's assume that this 'human' population suffered a bottleneck 51,000 years ago, going from 14474 to 1861. 
+#In human demographic models, it is common to model a bottleneck happening at 51,000 years ago (the 'Out-of-Africa' event).
+#in reality, to be accurate we should also simulate a population split, where an 'Eurasian' population is generated from this
+#bottleneck, but that adds a lot of complexity to the exercise.
+#So, being a bit simplistic, let's assume that this 'human' population suffered a bottleneck 51,000 years ago, with N going from 14474 (present) to 1861 (past). 
 #Hint, theta will change, and the Ne for scaling now will be 1861. Remember this makes no difference in the results, what is used for scaling, as long
 #as it is always the same.
 
-#first, recalculate theta using the same parameters, but 1,861 (N)
-#calculate the time of the event: divide years by generation time and then by 4N
-#calculate the growth parameter and run the command (very similar to the previous example)
+#first, recalculate theta using the same parameters, but 1,861 (N). theta=1.871
+#calculate the time of the event: divide years by generation time and then by 4N: (51000/20)/(4*1871)=0.3407269
+#calculate the growth parameter and run the command (very similar to the previous example): (1871/14474)/(4*1871)= 1.727235e-05
 
-#use 10000 replicates and 50 chromosomes
-
-ms nsam nreps -t theta -eN time growth_parameter|sample_stats|cut -f 2,4,6  > example3.stats.out
+#run
+ms 100 1000 -t 1.871 -eN 0.3407269 1.727235e-05|sample_stats|cut -f 2,4,6  > pop.bottleneck.t0.34.txt
 
 ################################################################################################
