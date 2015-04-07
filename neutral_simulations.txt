@@ -1,19 +1,75 @@
-#######################################################
+########################################################################################
 #	Author: Bárbara Bitarello
 #
-#
-#	Last modified: 02.04.2015
-########################################################
+# Description:Script for day 2 of popgen course. Some 'ms' commands and R commands
+#             for reading in results from simulations and making histograms.
+# 
+#	Last modified: 06.04.2015
+########################################################################################
+
+####################################
+####################################
+#PART I ############################
+#MS: Basic syntax#############
+####################################
+####################################
 
 
-#A few examples with MS
+#1)In the server, type
 
-#We will try to simulate a population compatible with what we know from human demographic history.
-#we will also try to compare TajD, number of segregating sites and pi for different demographic scenarios.
+cd /home/BIO5789/<your_user_name>/
 
-#Example 1: simulating a human population of constant size.
+#eg. /home/BIO5789/ouvinte1
 
-#Some info you need to have:
+#2) now, type
+
+ms 5 1 -t 2
+
+#and
+
+ms 5 1 -t 10
+#check the outputs.Each '//' limits the output from a replicate (in this case only 1) and each row of 0s and 1s represents one of the 5 sequences we are
+#simulating.
+
+#in the second case, we see that the number of segregating sites is higher than in the first. Why?
+
+#Answer: the '-t' indicates that what comes after that is the theta parameter (4Nu). The higher theta, the higher the number of mutations
+#happening along the genealogy.
+
+#3) now try the same command as in 2, but replacing '1' with 3
+
+ms 5 3 -t 10  #now we have three replicates.
+
+#PS: 'ms' is a very fast program, so with a model this simple, we can increase the number of replicates A LOT and will still run fast.
+
+
+################################################################################################
+################################################################################################
+#Part II #######################################################################################
+#RUNNNING SIMULATIONS FOLLOWING A HUMAN DMOGRAPHIC MODEL #######################################
+################################################################################################
+################################################################################################
+
+#Note: although the parameters we use from here on are widely used by those who simulate human 
+#sequences, we are simplifying a lot. In reality, one could simulate subpopulations, population
+#structure, migration between subpopulations and recombination. For our purposes, however, we 
+#will assume there is no substructure between subpopulation (we will simulate only one) and no 
+#recombination.
+
+#Task: try to simulate a population compatible with what we know from human demographic history,
+#and check the estimates for Tajima's D, SS (number os segregating sites) and pi (nucleotide diversity).
+#we will do this for
+#a) a 'human' population evolving without change in population size
+#b) with a ~2-fold increase in size ~148,000 years ago (based on real data)
+#b.1-b5) we will see what would happen if this increase in size had occured at other points in time.
+
+
+#############################################################
+#Example 1: simulating a human population of constant size.##
+#############################################################
+
+
+#Background info:
 
 #human long-term effective population size=10,000
 #human per site neutral mutation rate = 2.5.10e-08
