@@ -80,6 +80,9 @@ xlab=colnames(pop.t0.12.stats)[x], nclass=30, col='cornflowerblue'))
 #
 sapply(1:3, function(x) hist(pop.t0.5.stats[,x], main='Expansion at t=0.5', 
 xlab=colnames(pop.t0.5.stats)[x], nclass=30, col='cornflowerblue'))
+
+sapply(1:3, function(x) hist(pop.t1.stats[,x], main='Expansion at t=1', 
+xlab=colnames(pop.t1.stats)[x], nclass=30, col='cornflowerblue'))
 #
 sapply(1:3, function(x) hist(pop.t4.stats[,x], main='Expansion at t=4', 
 xlab=colnames(pop.t4.stats)[x], nclass=30, col='cornflowerblue'))

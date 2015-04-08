@@ -39,36 +39,30 @@ less CEU_YRI.weir.fst
 
 #--------------------------------------------------------------------#
 
-# (2) VCFtools: diversidade nucleotidica (pi)
+# (2) VCFtools: calculo de frequencias alelicas
 
-# No VCFtools, voce pode calcular pi por SNP simplesmente usando
-# o comando --site-pi
+# Para calcular as frequencias alelicas em uma populacao use os
+# comandos:
 
-# Para calcular pi em uma janela deslizante pelo cromossomo use
-# os comandos:
+# --keep    seguido do nome do arquivo contendo os IDs dos
+            individuos da populacao
+# --freq
 
-# --window-pi      seguido do tamanho da janela em pares de bases
-# --window-pi-step seguido do tamanho do deslizamento da janela
+# Vamos calcular as frequencias alelicas dos SNPs do cromossomo 15 nas
+# populacoes CEU e YRI
 
-# Para selecionar apenas individuos de uma populacao,
+vcftools --gzvcf chr15.vcf.gz --keep CEUindivs --freq --out CEU
+vcftools --gzvcf chr15.vcf.gz --keep YRIindivs --freq --out YRI
 
---keep  seguido do nome do arquivo contendo os IDs dos individuos
+# Esses comandos geram 2 outputs:
 
-# Vamos calcular pi ao longo do cromossomo 15 de individuos 
-# europeus (CEU) em janelas de 500kb, deslizando 250kb
-
-vcftools --gzvcf chr15.vcf.gz --keep CEUindivs --window-pi 500000 --window-pi-step 250000 --out CEU_w500k_s250k
-
-
-# Esse comando gera 2 outputs:
-
-less CEU_w500k_s250k.log
+less CEU.log
 # contem informacoes sobre o comando que vc rodou
 
-less CEU_w500k_s250k.windowed.pi
-# contem 3 colunas: CHROM, BIN_START, BIN_END, N_VARIANTS, PI
-# e uma linha para cada janela
+less CEU.frq
+# contem 3 colunas: CHROM, POS, N_ALLELES, N_CHR, {ALLELE:FREQ}
+# e uma linha para cada SNP
 
-# Transfira o arquivo CEU_w500k_s250k.windowed.pi para seu computador.
+# Transfira os arquivos CEU.frq e YRI.frq para seu computador.
 
 #--------------------------------------------------------------------#
