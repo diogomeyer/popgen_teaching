@@ -2,7 +2,7 @@
 
 # 1) About the Variant Call Format (VCF)
 
-# https://samtools.github.io/hts-specs/VCFv4.2.pdf
+# https://samtools.github.io/hts-specs/VCFv4.1.pdf
 
 # VCF is a tab-delimited file developed by the 1000 Genomes Project
 # to store DNA polymorphism data together with rich annotations.
@@ -17,16 +17,6 @@
 
 # VCFtools is a software that implements various utilities for
 # processing VCF files.
-
-# 2.1) Example: get allele frequencies from all variants in a VCF
-
-# Commands:
-# --gzvcf to specify the gzipped (compressed) vcf file
-# --freq to output allele frequency for each site in "out.frq" file
-# --out to specify another name for the output file
-
-vcftools --gzvcf chr15.vcf.gz --freq --out chr15
-#TIME: 7 sec
 
 #--------------------------------------------------------------------#
 
