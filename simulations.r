@@ -108,6 +108,9 @@ sapply(1:length(all_files), function(x) {
 dev.off()
 
 # Plot alternative 3
+var <- "pi"
+pdf(paste0("all.times.", var, ".pdf"), height = 12)
+par(mfrow = c(4, 2))
 hist(pop.const.stats[,1], main=paste(var, "(t = 0)"), 
      xlab=colnames(pop.const.stats)[var], 
      col='cornflowerblue') 
