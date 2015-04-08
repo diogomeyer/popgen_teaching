@@ -44,8 +44,15 @@ abline(v = 48.426484, col = "red", lty= 2)
 
 #--------------------------------------------------------------------#
 
-# (3) Vamos ver como a diversidade nucleotidica esta distribuida no 
+# Vamos ver como a diversidade nucleotidica esta distribuida no 
 # cromossomo 15, em CEU (onde a nova variante aumentou de frequencia)
+
+# Complete o item (2) do tutorial de VCFtools.
+
+#--------------------------------------------------------------------#
+
+# (3) Agora vamos plotar a diversidade nucleotidica ao longo do
+# cromossomo 15, calculada com o VCFtools
 
 nucdiv <- read.table("chr15_CEU_w500k_s250k.windowed.pi", header = TRUE)
 
