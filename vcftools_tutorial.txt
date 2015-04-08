@@ -1,0 +1,74 @@
+#--------------------------------------------------------------------#
+
+# (1) VCFtools: calculo de Fst
+
+# Exemplo: use o VCFtools para calcular FST entre uma populacao 
+# europeia (CEU) e uma africana (YRI) para cada SNP do cromossomo 15
+
+# Comando:
+# --weir-fst-pop    seguido do nome de um arquivo contendo os IDs dos
+#                   individuos (um por linha) de uma populacao.
+#                   Usar esse comando para 2 ou mais populacoes para 
+#                   calcular o FST entre elas.
+
+# Os arquivos de cada populacao ja estao no seu diretorio HOME. De uma
+# olhada neles:
+
+head CEUindivs
+
+head YRIindivs
+
+# O arquivo VCF do cromossomo 15 comprimido (.gz) tambem esta em seu
+# HOME. Ele contem apenas os SNPs exonicos do cromossomo, para
+# simplificar nosso exemplo.
+
+# Rodando o VCFtools:
+
+vcftools --gzvcf chr15.vcf.gz --weir-fst-pop CEUindivs --weir-fst-pop YRIindivs --out CEU_YRI
+
+# Esse comando gera 2 outputs:
+
+less CEU_YRI.log
+# contem informacoes sobre o comando que vc rodou
+
+less CEU_YRI.weir.fst
+# contem 3 colunas: CHROM, POS e WEIR_AND_COCKERHAM_FST,
+# e uma linha para cada SNP
+
+# Transfira o arquivo CEU_YRI.weir.fst para seu computador.
+
+#--------------------------------------------------------------------#
+
+# (2) VCFtools: diversidade nucleotidica (pi)
+
+# No VCFtools, voce pode calcular pi por SNP simplesmente usando
+# o comando --site-pi
+
+# Para calcular pi em uma janela deslizante pelo cromossomo use
+# os comandos:
+
+# --window-pi      seguido do tamanho da janela em pares de bases
+# --window-pi-step seguido do tamanho do deslizamento da janela
+
+# Para selecionar apenas individuos de uma populacao,
+
+--keep  seguido do nome do arquivo contendo os IDs dos individuos
+
+# Vamos calcular pi ao longo do cromossomo 15 de individuos 
+# europeus (CEU) em janelas de 500kb, deslizando 250kb
+
+vcftools --gzvcf chr15.vcf.gz --keep CEUindivs --window-pi 500000 --window-pi-step 250000 --out CEU_w500k_s250k
+
+
+# Esse comando gera 2 outputs:
+
+less CEU_w500k_s250k.log
+# contem informacoes sobre o comando que vc rodou
+
+less CEU_w500k_s250k.windowed.pi
+# contem 3 colunas: CHROM, BIN_START, BIN_END, N_VARIANTS, PI
+# e uma linha para cada janela
+
+# Transfira o arquivo CEU_w500k_s250k.windowed.pi para seu computador.
+
+#--------------------------------------------------------------------#
