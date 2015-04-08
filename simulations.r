@@ -89,57 +89,6 @@ xlab=colnames(pop.t4.stats)[x], nclass=30, col='cornflowerblue'))
 #
 dev.off()
 
-# Plot alternative 2
-vars <- c("pi", "ss", "D")
-
-for(var in vars) {
-pdf(paste0("all.times.", var, ".pdf"), height = 12)
-par(mfrow = c(4, 2))
-  hist(pop.const.stats[var], main=paste(var, "(t = 0)"), 
-       xlab=colnames(pop.const.stats)[var], 
-       col='cornflowerblue') 
-  hist(pop.t0.01.stats[var], main=paste(var, "(t = 0.01)"), 
-       xlab=colnames(pop.const.stats)[var], 
-       col='cornflowerblue') 
-  hist(pop.t0.05.stats[var], main=paste(var, "(t = 0.05)"), 
-       xlab=colnames(pop.const.stats)[var], 
-       col='cornflowerblue') 
-  hist(pop.t0.12.stats[var], main=paste(var, "(t = 0.12)"), 
-       xlab=colnames(pop.const.stats)[var], 
-       col='cornflowerblue') 
-  hist(pop.t0.5.stats[var], main=paste(var, "(t = 0.5)"), 
-       xlab=colnames(pop.const.stats)[var], 
-       col='cornflowerblue') 
-  hist(pop.t1.stats[var], main=paste(var, "(t = 1)"), 
-       xlab=colnames(pop.const.stats)[var], 
-       col='cornflowerblue') 
-  hist(pop.t4.stats[var], main=paste(var, "(t = 4)"), 
-       xlab=colnames(pop.const.stats)[var], 
-       col='cornflowerblue') 
-  dev.off()
-}
-
-# Plot alternative 3 
-vars <- c("pi", "ss", "D")
-
-for(var in vars) {
-  pdf(paste0("all.times.", var, ".pdf"), height = 12)
-  par(mfrow = c(4, 2))
-  files <- list.files(pattern = "pop\\.t*")
-  all_files <- lapply(files, read.table, col.names = vars)
-
-  times <- gsub("[^0-9]", "", files)
-  times[times==""] <- 0
-
-  sapply(1:length(all_files), function(x) {
-	 hist(all_files[[x]][var][[1]], 
-	      main=paste(var, sprintf("t = %s", times[x])), 
-	      xlab=colnames(all_files[[x]])[var], 
-	      col='cornflowerblue')
-  })
-  dev.off()
-}
-
 ############################
 ##The END (of the R code)###
 ############################
@@ -154,5 +103,3 @@ for(var in vars) {
 #for very recent expansion, D is very negative and moves steadily closer to zero as time since expasion increases until a quasi-
 #equilibrium state.
 #
-
-
