@@ -44,32 +44,50 @@ abline(v = 48.426484, col = "red", lty= 2)
 
 #--------------------------------------------------------------------#
 
-# Vamos ver como a diversidade nucleotidica esta distribuida no 
-# cromossomo 15, em CEU (onde a nova variante aumentou de frequencia)
+# (3) 2D-SFS
 
-# Complete o item (2) do tutorial de VCFtools.
+# Ler output do VCFtools
+CEUfrq <- read.table("CEU.frq", header = TRUE,
+                     as.is = TRUE, fill = TRUE,
+                     col.names = c("CHROM", "POS", "N_ALLELES", "N_CHR",
+                                   "ALLELE:FREQ_1", "ALLELE:FREQ_2"))
+head(CEUfrq)
 
-#--------------------------------------------------------------------#
+# Extrair so a frequencia do alelo alternativo 1
+CEU_AF <- sapply(strsplit(x=CEUfrq$ALLELE.FREQ_1, ":"), "[", 2)
+head(CEU_AF)
 
-# (3) Agora vamos plotar a diversidade nucleotidica ao longo do
-# cromossomo 15, calculada com o VCFtools
+# Idem para YRI
+# Ler output do VCFtools
+YRIfrq <- read.table("YRI.frq", header = TRUE,
+                     as.is = TRUE, fill = TRUE, 
+                     col.names = c("CHROM", "POS", "N_ALLELES", "N_CHR",
+                                   "ALLELE:FREQ_1", "ALLELE:FREQ_2"))
+head(YRIfrq)
 
-nucdiv <- read.table("chr15_CEU_w500k_s250k.windowed.pi", header = TRUE)
+# Extrair so a frequencia do alelo alternativo 1
+YRI_AF <- sapply(strsplit(x=YRIfrq$ALLELE.FREQ_1, ":"), "[", 2)
+head(YRI_AF)
 
-head(nucdiv)
+# Plotar as frequencias do alelo alternativo de uma populacao contra
+# a outra
+plot(CEU_AF, YRI_AF, cex = 0.5)
 
-SNP<-c(1:(nrow(nucdiv)))
-pidf<-data.frame(SNP,nucdiv)
+# Plotar as frequencias no SNP em SLC24A5
 
-manhattan(pidf,chr="CHROM",bp="BIN_START",p="PI",
-          snp="SNP",logp=FALSE, ylab = "Pi", 
-          main = "Nucleotide diversity in CEU", 
-          ylim = c(0,0.0001), type = "l"
-          #, xlim = c(40,60) # descomentar essa linha para dar um zoom
-)
-# inserir linha vertical no SNP que tem o maior FST (unidade em Mb)
-abline(v = 48.426484, col = "red", lty= 2)
+# coordenada do SNP com FST maximo
+posSLC<-fst[which.max(fst$WEIR_AND_COCKERHAM_FST), "POS"]
+posSLC
 
+# Extraindo a linha desse SNP nas tabelas de frequencia
+CEUfrq[ CEUfrq$POS == posSLC,]
+YRIfrq[ YRIfrq$POS == posSLC,]
+
+# Extraindo a frequencia do alelo alternativo nesse SNP
+CEU_SLC <- CEU_AF[ CEUfrq$POS == posSLC]
+YRI_SLC <- YRI_AF[ YRIfrq$POS == posSLC]
+
+points(CEU_SLC, YRI_SLC, col= "red", pch = "*", cex = 4)
 #--------------------------------------------------------------------#
 
 # (4) Extra: 
