@@ -90,31 +90,34 @@ xlab=colnames(pop.t4.stats)[x], nclass=30, col='cornflowerblue'))
 dev.off()
 
 # Plot alternative 2
-var <- "pi"
+vars <- c("pi", "ss", "D")
+
+for(var in vars) {
 pdf(paste0("all.times.", var, ".pdf"), height = 12)
 par(mfrow = c(4, 2))
-hist(pop.const.stats[,1], main=paste(var, "(t = 0)"), 
-     xlab=colnames(pop.const.stats)[var], 
-     col='cornflowerblue') 
-hist(pop.t0.01.stats[,1], main=paste(var, "(t = 0.01)"), 
-     xlab=colnames(pop.const.stats)[var], 
-     col='cornflowerblue') 
-hist(pop.t0.05.stats[,1], main=paste(var, "(t = 0.05)"), 
-     xlab=colnames(pop.const.stats)[var], 
-     col='cornflowerblue') 
-hist(pop.t0.12.stats[,1], main=paste(var, "(t = 0.12)"), 
-     xlab=colnames(pop.const.stats)[var], 
-     col='cornflowerblue') 
-hist(pop.t0.5.stats[,1], main=paste(var, "(t = 0.5)"), 
-     xlab=colnames(pop.const.stats)[var], 
-     col='cornflowerblue') 
-hist(pop.t1.stats[,1], main=paste(var, "(t = 1)"), 
-     xlab=colnames(pop.const.stats)[var], 
-     col='cornflowerblue') 
-hist(pop.t4.stats[,1], main=paste(var, "(t = 4)"), 
-     xlab=colnames(pop.const.stats)[var], 
-     col='cornflowerblue') 
-dev.off()
+  hist(pop.const.stats[var], main=paste(var, "(t = 0)"), 
+       xlab=colnames(pop.const.stats)[var], 
+       col='cornflowerblue') 
+  hist(pop.t0.01.stats[var], main=paste(var, "(t = 0.01)"), 
+       xlab=colnames(pop.const.stats)[var], 
+       col='cornflowerblue') 
+  hist(pop.t0.05.stats[var], main=paste(var, "(t = 0.05)"), 
+       xlab=colnames(pop.const.stats)[var], 
+       col='cornflowerblue') 
+  hist(pop.t0.12.stats[var], main=paste(var, "(t = 0.12)"), 
+       xlab=colnames(pop.const.stats)[var], 
+       col='cornflowerblue') 
+  hist(pop.t0.5.stats[var], main=paste(var, "(t = 0.5)"), 
+       xlab=colnames(pop.const.stats)[var], 
+       col='cornflowerblue') 
+  hist(pop.t1.stats[var], main=paste(var, "(t = 1)"), 
+       xlab=colnames(pop.const.stats)[var], 
+       col='cornflowerblue') 
+  hist(pop.t4.stats[var], main=paste(var, "(t = 4)"), 
+       xlab=colnames(pop.const.stats)[var], 
+       col='cornflowerblue') 
+  dev.off()
+}
 
 # Plot alternative 3 
 vars <- c("pi", "ss", "D")
