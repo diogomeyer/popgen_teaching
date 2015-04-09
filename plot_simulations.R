@@ -11,7 +11,7 @@ all_files <- lapply(files, read.table, col.names = vars)
 times <- gsub("^.*t(.*)\\.stats\\.out$", "\\1", files)
 
 # first file doesn't have the 'time' in the name, but it corresponds to time = 0
-times[times==""] <- 0
+times[times==""] <- "t constant"
 names(all_files) <- paste0("t", times)
   
 # Plot
