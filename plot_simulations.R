@@ -33,7 +33,7 @@ library(ggplot2)
 for (i in seq_along(all_files)) 
   all_files[[i]] %<>% mutate(time = names(all_files[i]))
 
-# transform the all_files list in a single data.frame
+# transform the all_files list into a single data.frame
 all_files_df <- rbind_all(all_files)
 
 # create a list of plots
