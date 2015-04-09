@@ -11,20 +11,20 @@
 #                   Usar esse comando para 2 ou mais populacoes para 
 #                   calcular o FST entre elas.
 
-# Os arquivos de cada populacao ja estao no seu diretorio HOME. De uma
-# olhada neles:
+# Os arquivos de cada populacao ja estao no servidor, em 
+# /home/BIO5789/utils/data/. De uma olhada neles:
 
-head CEUindivs
+head ../utils/data/CEUindivs
 
-head YRIindivs
+head ../utils/data/YRIindivs
 
 # O arquivo VCF do cromossomo 15 comprimido (.gz) tambem esta em seu
-# HOME. Ele contem apenas os SNPs exonicos do cromossomo, para
-# simplificar nosso exemplo.
+# no mesmo diretorio no servidor. Ele contem apenas os SNPs exonicos
+# do cromossomo, para simplificar nosso exemplo.
 
 # Rodando o VCFtools:
 
-vcftools --gzvcf chr15.vcf.gz --weir-fst-pop CEUindivs --weir-fst-pop YRIindivs --out CEU_YRI
+vcftools --gzvcf ../utils/data/chr15.vcf.gz --weir-fst-pop ../utils/data/CEUindivs --weir-fst-pop ../utils/data/YRIindivs --out CEU_YRI
 
 # Esse comando gera 2 outputs:
 
@@ -51,8 +51,8 @@ less CEU_YRI.weir.fst
 # Vamos calcular as frequencias alelicas dos SNPs do cromossomo 15 nas
 # populacoes CEU e YRI
 
-vcftools --gzvcf chr15.vcf.gz --keep CEUindivs --freq --out CEU
-vcftools --gzvcf chr15.vcf.gz --keep YRIindivs --freq --out YRI
+vcftools --gzvcf ../utils/data/chr15.vcf.gz --keep ../utils/data/CEUindivs --freq --out CEU
+vcftools --gzvcf ../utils/data/chr15.vcf.gz --keep ../utils/data/YRIindivs --freq --out YRI
 
 # Esses comandos geram 2 outputs:
 
