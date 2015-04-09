@@ -45,6 +45,6 @@ for (var in vars)
 		    facet_wrap(~ time, ncol = 1)
 
 # open the pdf device and save plots
-pdf("all_plots.pdf", width = 12)
+pdf("plots_simulations.pdf", width = 12)
 plot_list
 dev.off()
