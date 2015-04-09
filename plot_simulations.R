@@ -68,9 +68,9 @@ names(plot_list) <- vars
 for (var in vars) 
   plot_list[[var]] <- ggplot(all_files_df, aes_string(var)) + 
                     geom_histogram() + 
-		    facet_wrap(~time, scales = "free")
+		    facet_grid(. ~ time, as.table = FALSE)
 
 # open the pdf device and save plots
-pdf("all_plots.pdf")
+pdf("all_plots.pdf", width = 12)
 plot_list
 dev.off()
