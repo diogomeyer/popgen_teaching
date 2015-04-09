@@ -1,7 +1,8 @@
-# Variable names:
+# Variables names:
 vars <- c("pi", "ss", "D")
 
-# get all file names starting with 'pop.t'
+# get all file names starting with 'pop.t' in your working directory,
+# assuming that the output files from the simulations are in your wd:
 files <- list.files(pattern = "pop\\.t*")
 
 # read all files in a list
@@ -10,13 +11,14 @@ all_files <- lapply(files, read.table, col.names = vars)
 # get the 'times' from the file names
 times <- gsub("^.*t(.*)\\.stats\\.out$", "\\1", files)
 
-# first file doesn't have the 'time' in the name, but it corresponds to time = 0
+# first file doesn't have the 'time' in the name
+# this is the file from the simulation with 'constant time' 
 times[times==""] <- "constant"
 names(all_files) <- paste("t =", times)
   
 # Plot
-# We're going to use 3 packages: magrittr, dplyr, ggplot2.
-# If you don't those packages installed, first execute the following line:
+# We're going to use 3 packages: magrittr, dplyr and ggplot2.
+# If you don't have these packages installed, first execute the following line:
 
 # install.packages(c("magrittr", "dplyr", "ggplot2"))
 
