@@ -34,6 +34,12 @@ for(i in 1:npops) {
 H <- 2 * P * (1-P)
 
 # ---------------------------------------------------------------------------- #
+# Population trajectories
+plot(NA, type = "n", xlim = c(1, ngens), ylim = c(0, 1), 
+     xlab = "generations", ylab = "frequency")
+
+for (i in 1:npops)
+  lines(P[, i], col = rainbow(npops)[i])
 
 # plotting the heterozygosities:
 plot(NA, type = "n", xlim = c(1, ngens), ylim = c(0, 0.5),
@@ -53,7 +59,9 @@ lines(h_theor, lty = 3, lwd = 3)
 
 # plotting the average allele frequency
 #### Check: this is not the correct plot
-plot(rowMeans(P), type = "l", xlab = "generation", ylab = "average frequency")
+plot(rowMeans(P), type = "l", 
+     xlab = "generation", ylab = "average frequency", 
+     ylim = c(0, 1))
 
 # ---------------------------------------------------------------------------- #
 
