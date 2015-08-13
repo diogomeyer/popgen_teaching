@@ -58,7 +58,6 @@ lines(h_theor, lty = 3, lwd = 3)
 # ---------------------------------------------------------------------------- #
 
 # plotting the average allele frequency
-#### Check: this is not the correct plot
 plot(rowMeans(P), type = "l", 
      xlab = "generation", ylab = "average frequency", 
      ylim = c(0, 1))
