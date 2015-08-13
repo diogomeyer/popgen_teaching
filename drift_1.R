@@ -38,6 +38,6 @@ for(i in 2:ngens) {
 }
 
 # Plot
-plot(p, type = "l", 
+plot(p, type = "l", ylim = c(0, 1),
      xlab = "generations", ylab = "frequency", 
      main = "allele frequency change")
