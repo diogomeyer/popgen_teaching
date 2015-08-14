@@ -103,7 +103,7 @@ x
 
 x * 10
 
-# Tamanho do vetor x
+# Length of the vector x
 length(x)
 
 for (i in 1:length(x))
