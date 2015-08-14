@@ -23,14 +23,16 @@ P <- matrix(nrow = ngens, ncol = npops)
 for(i in 1:npops) {
   
   pop <- rep(0:1, each = N/2)
-  P[1, i] <- mean(pop == 0)
+  P[1, i] <- mean(pop)
   
+  # for each generation
   for(j in 2:ngens) {
     pop <- sample(pop, replace = TRUE)
-    P[j, i] <- mean(pop == 0)
+    P[j, i] <- mean(pop)
   }
 }
 
+# Compute heterozygosity rate for each population, for each generation
 H <- 2 * P * (1-P)
 
 # ---------------------------------------------------------------------------- #
