@@ -22,8 +22,11 @@ ngens <- 2000
 # vector:
 p <- numeric(ngens)
 
+# Fill the vector with NA (because no population is available yet)
+p < - rep(NA, ngens) 
+
 # 1st element of vector 'p' will be the allele frequency in parent generation:
-p[1] <- mean(pop == 0)
+p[1] <- mean(pop)
 
 # Now we have to calculate the allele frequencies in the next generations.
 # Let's use a 'for loop' to calculate the frequency in each generation and
@@ -34,7 +37,7 @@ for(i in 2:ngens) {
   pop <- sample(pop, replace = TRUE)
   
   # allele frequency in the ith generation:
-  p[i] <- mean(pop == 0)
+  p[i] <- mean(pop)
 }
 
 # Plot
