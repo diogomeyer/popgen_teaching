@@ -2,7 +2,7 @@
 
 ## Create a haploid population of 1000 individuals with alleles 0 or 1 --------#
 
-# Number of individuals:
+# Number of individuals (or gametes):
 N <- 1000
 
 # Population of individuals '0' or '1':
