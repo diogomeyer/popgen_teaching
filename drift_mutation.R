@@ -1,7 +1,7 @@
 ## Drift and mutation formulas and trajectories
 
 # Functions: ----------------------------------------------------------------- #
-# H_eq computes the equilibrium heterozygosity 
+# eq_het computes the equilibrium heterozygosity 
 eq_het <- function(N, u) { 
   
   theta <- 4 * N * u 
