@@ -1,8 +1,8 @@
 ## Drift and mutation formulas and trajectories
 
 # Functions: ----------------------------------------------------------------- #
-# eq_het computes the equilibrium heterozygosity 
-eq_het <- function(N, u) { 
+# H_eq computes the equilibrium heterozygosity 
+H_eq <- function(N, u) { 
   
   theta <- 4 * N * u 
   H <- theta / (theta + 1) 
@@ -34,5 +34,5 @@ for (i in 2:ngens)
 plot(f_res, ylab = "homozygosity", xlab = "generations", ylim = c(0, 1))  
 
 # checking the value of convergence and observed value
-abline(h = eq_het(N, u)) # for heterozygosity
-abline(h = 1 - eq_het(N, u)) # for homozygosity
+abline(h = H_eq(N, u)) # for heterozygosity
+abline(h = 1 - H_eq(N, u)) # for homozygosity
