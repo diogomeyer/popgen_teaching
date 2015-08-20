@@ -36,15 +36,3 @@ plot(f_res, ylab = "homozygosity", xlab = "generations", ylim = c(0, 1))
 # checking the value of convergence and observed value
 abline(h = eq_het(N, u)) # for heterozygosity
 abline(h = 1 - eq_het(N, u)) # for homozygosity
-
-# Pop fluctuating in size over time.
-N_1 <- 5000
-ngens_1 <- 20
-
-N_2 <- 100
-ngens_2 <- 5
-
-periods <- 4
-
-flut <- rep(c(rep(N_1, ngens_1), rep(N_2, ngens_2)), periods)
-plot(flut, type = "l", xlab = "time", ylab = "N")
