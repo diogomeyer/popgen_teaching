@@ -103,7 +103,10 @@ x
 
 x * 10
 
-for (i in x) 
+# Length of the vector x
+length(x)
+
+for (i in 1:length(x))
   x[i] <- x[i] * 10
 
 x
