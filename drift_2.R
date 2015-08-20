@@ -58,9 +58,8 @@ lines(h_theor, lty = 3, lwd = 3)
 # ---------------------------------------------------------------------------- #
 
 # plotting the average allele frequency
-plot(rowMeans(P), type = "l", 
-     xlab = "generation", ylab = "average frequency", 
-     ylim = c(0, 1))
+plot(rowMeans(P), type = "l", ylim = c(0, 1),
+     xlab = "generation", ylab = "average frequency")
 
 # ---------------------------------------------------------------------------- #
 
