@@ -5,10 +5,10 @@
 # Exemplo: use o VCFtools para calcular FST entre uma populacao 
 # europeia (CEU) e uma africana (YRI) para cada SNP do cromossomo 15
 
-# Comando:
+# Commando:
 # --weir-fst-pop    seguido do nome de um arquivo contendo os IDs dos
 #                   individuos (um por linha) de uma populacao.
-#                   Usar esse comando para 2 ou mais populacoes para 
+#                   Usar esse commando para 2 ou mais populacoes para 
 #                   calcular o FST entre elas.
 
 # Os arquivos de cada populacao ja estao no servidor, em 
@@ -26,10 +26,10 @@ head ../utils/data/YRIindivs
 
 vcftools --gzvcf ../utils/data/chr15.vcf.gz --weir-fst-pop ../utils/data/CEUindivs --weir-fst-pop ../utils/data/YRIindivs --out CEU_YRI
 
-# Esse comando gera 2 outputs:
+# Esse commando gera 2 outputs:
 
 less CEU_YRI.log
-# contem informacoes sobre o comando que vc rodou
+# contem informacoes sobre o commando que vc rodou
 
 less CEU_YRI.weir.fst
 # contem 3 colunas: CHROM, POS e WEIR_AND_COCKERHAM_FST,
@@ -42,7 +42,7 @@ less CEU_YRI.weir.fst
 # (2) VCFtools: calculo de frequencias alelicas
 
 # Para calcular as frequencias alelicas em uma populacao use os
-# comandos:
+# commandos:
 
 # --keep    seguido do nome do arquivo contendo os IDs dos
             individuos da populacao
@@ -54,10 +54,10 @@ less CEU_YRI.weir.fst
 vcftools --gzvcf ../utils/data/chr15.vcf.gz --keep ../utils/data/CEUindivs --freq --out CEU
 vcftools --gzvcf ../utils/data/chr15.vcf.gz --keep ../utils/data/YRIindivs --freq --out YRI
 
-# Esses comandos geram 2 outputs:
+# Esses commandos geram 2 outputs:
 
 less CEU.log
-# contem informacoes sobre o comando que vc rodou
+# contem informacoes sobre o commando que vc rodou
 
 less CEU.frq
 # contem 3 colunas: CHROM, POS, N_ALLELES, N_CHR, {ALLELE:FREQ}
