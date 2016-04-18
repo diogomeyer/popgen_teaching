@@ -95,7 +95,7 @@ dev.off()
 ##Discussion
 #open the pdf and see how 'pi' and look at object all.stats.sum in R, and note that
 
-#when expansion occured a long time ago (4*4*N generations ago), pi is very close to the theta parameter we simulated. Population has
+#when expansion occurred a long time ago (4*4*N generations ago), pi is very close to the theta parameter we simulated. Population has
 #is in equilibrium again.
 #for constant size simulations, it is very close as well. 
 #for all the other times in between, what we see is a recovery of pi (which is very low for a very recent expansion)
