@@ -70,7 +70,7 @@ ms 5 3 -t 10  #now we have three replicates.
 #we will do this for
 #a) a 'human' population evolving without change in population size
 #b) with a ~2-fold increase in size ~148,000 years ago (based on real data)
-#b.1-b5) we will see what would happen if this increase in size had occured at other points in time.
+#b.1-b5) we will see what would happen if this increase in size had occurred at other points in time.
 
 
 #############################################################
@@ -156,7 +156,7 @@ ms 100 1000 -t 14.474 -eN 0.1278154 8.711355e-06|sample_stats|cut -f 2,4,6 > pop
 #In the previous exercise we used actual estimates for the timing of the expansion event in humans. 
 #Now, relaxing a bit about simulating actual human demographic data, let's explore what happens if we change the
 #timing of the expansion event.
-#Note: remember these simulations go from present to past. If an expansion event occured 0.12 (*4N) generations ago,
+#Note: remember these simulations go from present to past. If an expansion event occurred 0.12 (*4N) generations ago,
 #this means that the population has had around 7,000 generations to evolve.
 #If we change this timing to, say, 1 (i.e, 4N generations), then the population has had a longer time to evolve since the 
 #event. Because the sample we collect from the simulations if of the 'present' time, by changing the time of events we can have 
@@ -164,7 +164,7 @@ ms 100 1000 -t 14.474 -eN 0.1278154 8.711355e-06|sample_stats|cut -f 2,4,6 > pop
 #Changing the timing of expansion is a way of looking at what happens immediately after an expansion (t=0.01), or a long time after (t=4).
 
 #######Let's change the timing of the expansion event and save the output ################
-#Run simualtions with the expansion event occuring at times={0.01, 0.05, 0.5, 1, 4} (in the previosu exercise the time was 0.12)
+#Run simualtions with the expansion event occurring at times={0.01, 0.05, 0.5, 1, 4} (in the previosu exercise the time was 0.12)
 
 ms 100 1000 -t 14.4 -eN 0.01 8.711355e-06|sample_stats|cut -f 2,4,6 > pop.t0.01.stats.out
 ms 100 1000 -t 14.4 -eN 0.05 8.711355e-06|sample_stats|cut -f 2,4,6 > pop.t0.05.stats.out
